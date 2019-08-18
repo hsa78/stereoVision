@@ -2,10 +2,20 @@
 #include <vector>
 #include <opencv2/opencv.hpp>
 
+class d_pixel
+{
+public:
+	d_pixel(int _x, int _y, int _disparity) : x(_x), y(_y), disparity(_disparity) {};
+private:
+	int x;
+	int y;
+	int disparity;
+};
+
 class Cost
 {
 public:
-	Cost(Mat image_1, Mat image_2);
+	Cost(cv::Mat image_1, cv::Mat image_2){};
 private:
 	std::vector<std::vector<std::vector<int>>> ssd;
 };
@@ -14,9 +24,15 @@ private:
 class Stereo
 {
 public:
-	Stereo(Mat image_1, Mat image_2);
-	std::vector<std::vector<int>> disparity(std::vector<std::vector<std::vector<int>>> totalCost);
+	Stereo(cv::Mat image_1, cv::Mat image_2, int _max_disparity, int _w);
+	void compute();
+	int total_cost(int x, int y);
+	d_pixel disparity(int x, int y);
 private:
+	cv::Mat image_l;
+	cv::Mat image_r;
+	cv::Mat result;
 	Cost ssd;
-	Mat dest;
+	int max_disparity;
+	int w;
 };
