@@ -5,27 +5,44 @@ using namespace std;
 using namespace cv;
 
 
-Stereo::Stereo(Mat image_1, Mat	image_2, int _max_disparity, int _w) : ssd(image_1, image_2) , w(_w), max_disparity(_max_disparity) , image_r(image_1) , image_l(image_2)
+Stereo::Stereo(Mat image_1, Mat	image_2, int _max_disparity, int _w) : /*ssd(image_1, image_2) ,*/ 
+w(_w), max_disparity(_max_disparity) , image_r(image_1) , image_l(image_2), result(image_2)
 { 
 
 }
 
+void Stereo::set_pixel(d_pixel d)
+{
+	result.at<uchar>(d.get_x(), d.get_y()) = d.get_disparity();
+}
+
+void Stereo::compute()
+{
+	for (int i = 0; i < result.rows; ++i)
+	{
+		for (int j = 0; j < result.cols; ++j)
+			set_pixel(disparity(i, j));
+	}
+}
+
 d_pixel Stereo::disparity(int x, int y)
 {
-	int min_disparity = total_cost(x, y);
+	int min_disparity;
+
 	for (int i = 1; i < max_disparity; ++i)
 	{
-		int disparity = total_cost(x, y);
-		if (disparity < min_disparity)
+		if (i == 1)
+			min_disparity = total_cost(x, y, 1);
+
+		int disparity = total_cost(x, y, i);
+
+		if (disparity < min_disparity && disparity != -1)
 			min_disparity = disparity;
 	}
+
 	return d_pixel(x, y, min_disparity);
 }
 
-int Stereo::total_cost(int x, int y)
-{
-
-}
 
 int main(int argc, char *argv[])
 {
@@ -47,12 +64,15 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    Stereo(image_1, image_2, stoi(argv[3]), stoi(argv[4]));
+    Stereo result(image_1, image_2, stoi(argv[3]), stoi(argv[4]));
 
-	namedWindow("display image grayscale", WINDOW_AUTOSIZE );
+    result.compute();
 
-    imshow("1", image_1);
-    imshow("2", image_2);
+    Mat image = result.get_result();
+
+	namedWindow("Stereo Image", WINDOW_AUTOSIZE );
+
+    imshow("1", image);
 
     waitKey(0);
 
