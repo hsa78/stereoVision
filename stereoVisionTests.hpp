@@ -40,6 +40,11 @@ class Tester
     public:
         Tester();
         void testAllFuntions();
+        void setRightImg(Mat _rightImg);
+        void setLeftImg(Mat _leftImg);
+    private:
+        Mat leftImg;
+        Mat rightImg;
 };
 
 class InvalidInputTester : public Tester
@@ -77,14 +82,11 @@ class ResultTester : public Tester
 {
     public:
         void testAllFunctionResults();
-        void setRightImg(Mat _rightImg);
-        void setLeftImg(Mat _leftImg);
+        
     private:
         bool testDisparityResult();
         bool testSetPixelResult();
         bool testTotalCostResult();
 
-    private:
-        Mat leftImg;
-        Mat rightImg;
+   
 };
