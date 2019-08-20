@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <opencv2/imgproc/imgproc.hpp>
+#include "headers.h"
 
 #define WINDOW_SIZE 3
 #define IMG_ROWS_NUMBER 500
@@ -11,6 +12,7 @@
 
 #define RIGHT_ANSWER true
 #define WRONG_ANSWER false
+#define INVALID_DISPARITY -1
 
 #define MAX_PIXEL_VALUE 255
 
@@ -38,13 +40,15 @@ class ImgMaker
 class Tester
 {
     public:
-        Tester();
+        Tester(Mat _leftImg,Mat _rightImg);
         void testAllFuntions();
         void setRightImg(Mat _rightImg);
         void setLeftImg(Mat _leftImg);
-    private:
+    protected:
         Mat leftImg;
         Mat rightImg;
+        Stereo stereo;
+        d_pixel d;
 };
 
 class InvalidInputTester : public Tester
