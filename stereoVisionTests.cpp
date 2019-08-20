@@ -83,3 +83,17 @@ bool InvalidInputTester::testDisparityWithWrongYCordination()
     else
         return RIGHT_ANSWER;
 }
+
+bool InvalidInputTester::testDisparityWithWrongCordination()
+{
+   int wrongXCordination = 700;
+   int wrongYCordination = 750;
+
+   d_pixel result = stereo.disparity(wrongXCordination,wrongYCordination);
+
+   if(result.get_x == wrongXCordination || result.get_y == wrongYCordination || 
+      result.get_disparity == INVALID_DISPARITY)
+        return WRONG_ANSWER;
+   else
+        return RIGHT_ANSWER;
+}
