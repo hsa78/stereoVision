@@ -45,3 +45,14 @@ vector<vector<int> > ImgMaker::makeImgVectorWithAlgorithmType2()
 
     return imgValues;
 }
+
+void ImgMaker::fillImgWithVector(vector<vector<int> > imgPixelVals)
+{
+    for(int i = 0; i < rowsNum; i++)
+    {
+        for(int j = 0; j < colsNum; j++)
+        {
+            img.at<u_int8_t>(i,j) = imgPixelVals[i][j];
+        }
+    }
+}
