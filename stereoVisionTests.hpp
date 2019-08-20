@@ -22,7 +22,7 @@ using namespace cv;
 class ImgMaker
 {
     public:
-        ImgMaker(int _algorithmType,int _rowsNum = IMG_ROWS_NUMBER,int _colsNum = IMG_COLS_NUMBER);
+        ImgMaker(int _algorithmType,int _rowsNum ,int _colsNum );
         Mat getImg() {return img;} 
     private:
         int algorithmType;

@@ -65,7 +65,7 @@ bool InvalidInputTester::testDisparityWithWrongXCordination()
 
     d_pixel result = stereo.disparity(wrongXCordination,rightYCordination);
     
-    if(result.get_x == wrongXCordination || result.get_disparity == INVALID_DISPARITY)
+    if(result.get_x() == wrongXCordination || result.get_disparity() == INVALID_DISPARITY)
         return WRONG_ANSWER;
     else
         return RIGHT_ANSWER;
@@ -78,7 +78,7 @@ bool InvalidInputTester::testDisparityWithWrongYCordination()
 
     d_pixel result = stereo.disparity(rightXCordination,wrongYCordination);
 
-    if(result.get_y == wrongYCordination || result.get_disparity == INVALID_DISPARITY)
+    if(result.get_y() == wrongYCordination || result.get_disparity() == INVALID_DISPARITY)
         return WRONG_ANSWER;
     else
         return RIGHT_ANSWER;
@@ -91,9 +91,18 @@ bool InvalidInputTester::testDisparityWithWrongCordination()
 
    d_pixel result = stereo.disparity(wrongXCordination,wrongYCordination);
 
-   if(result.get_x == wrongXCordination || result.get_y == wrongYCordination || 
-      result.get_disparity == INVALID_DISPARITY)
+   if(result.get_x() == wrongXCordination || result.get_y() == wrongYCordination || 
+      result.get_disparity() == INVALID_DISPARITY)
         return WRONG_ANSWER;
    else
         return RIGHT_ANSWER;
+}
+
+bool InvalidInputTester::testDisparityWithUnInintializedVars()
+{
+    int xPos,yPos;
+
+    d_pixel result = stereo.disparity(xPos,yPos);
+
+    return RIGHT_ANSWER; //i could not find a way to check the answer is right or wrong but if this is not checked in function it will be cause runtime error
 }
