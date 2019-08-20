@@ -25,3 +25,23 @@ vector<vector<int> > ImgMaker::makeImgVectorWithAlgorithmType1()
 
     return imgValues;
 }
+
+vector<vector<int> > ImgMaker::makeImgVectorWithAlgorithmType2()
+{
+    vector<vector<int> > imgValues;
+    int counter = 0;
+
+    for(int i = 0; i < rowsNum; i++)
+    {
+        vector<int> temp;
+        imgValues.push_back(temp);
+
+        for(int j = 0; j < colsNum; j++)
+        {
+            imgValues[i].push_back(counter);
+            counter = (counter + 1) % MAX_PIXEL_VALUE;
+        }
+    }
+
+    return imgValues;
+}
