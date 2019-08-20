@@ -35,12 +35,14 @@ class ImgMaker
 };
 
 
-class tester
+class Tester
 {
-
+    public:
+        Tester();
+        void testAllFuntions();
 };
 
-class invalidInputTester : public tester
+class InvalidInputTester : public Tester
 {
     public:
         void testAllFunctionsInputs();
@@ -71,7 +73,7 @@ class invalidInputTester : public tester
 
 };
 
-class resultTester : public tester 
+class ResultTester : public Tester 
 {
     public:
         void testAllFunctionResults();
