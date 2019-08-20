@@ -12,6 +12,8 @@
 #define RIGHT_ANSWER true
 #define WRONG_ANSWER false
 
+#define MAX_PEXEL_VALUE 255
+
 using namespace std;
 using namespace cv;
 
