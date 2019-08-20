@@ -56,3 +56,17 @@ void ImgMaker::fillImgWithVector(vector<vector<int> > imgPixelVals)
         }
     }
 }
+
+
+bool InvalidInputTester::testDisparityWithWrongXCordination()
+{
+    int wrongXCordination = 700;
+    int rightYCordination = 100;
+
+    d_pixel result = stereo.disparity(wrongXCordination,rightYCordination);
+    
+    if(result.get_x == wrongXCordination || result.get_disparity == INVALID_DISPARITY)
+        return WRONG_ANSWER;
+    else
+        return RIGHT_ANSWER;
+}
