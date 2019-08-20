@@ -18,15 +18,17 @@ using namespace cv;
 class ImgMaker
 {
     public:
-        ImgMaker(int algorithmTyp,int _rowsNum = IMG_ROWS_NUMBER,int _colsNum = IMG_COLS_NUMBER);
+        ImgMaker(int _algorithmType,int _rowsNum = IMG_ROWS_NUMBER,int _colsNum = IMG_COLS_NUMBER);
         Mat getImg() {return img;} 
     private:
+        int algorithmType;
         int rowsNum;
         int colsNum;
         Mat img;
 
-        Mat makeImgWithAlgorithmType1();
-        Mat makeImgWithAlgorithmType2();
+        vector<vector<int> > makeImgVectorWithAlgorithmType1();
+        vector<vector<int> > makeImgVectorWithAlgorithmType2();
+        void fillImgWithVector(vector<vector<int> > imgPixelVals);
 
 };
 
