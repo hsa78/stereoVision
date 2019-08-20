@@ -75,6 +75,8 @@ class resultTester : public tester
 {
     public:
         void testAllFunctionResults();
+        void setRightImg(Mat _rightImg);
+        void setLeftImg(Mat _leftImg);
     private:
         bool testDisparityResult();
         bool testSetPixelResult();
