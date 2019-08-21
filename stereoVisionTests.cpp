@@ -75,6 +75,15 @@ void Tester::testAllFuntions()
     resultTester.testAllFunctionResults();
 }
 
+void Tester::setLeftImg(Mat _leftImg)
+{
+    leftImg = _leftImg;
+}
+
+void Tester::setRightImg(Mat _rightImg)
+{
+    rightImg = _rightImg;
+}
 
 bool InvalidInputTester::testDisparityWithWrongXCordination()
 {
