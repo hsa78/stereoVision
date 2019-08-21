@@ -1,5 +1,6 @@
 #include "stereoVisionTests.hpp"
 
+
 ImgMaker::ImgMaker(int _algorithmType,int _rowsNum = IMG_ROWS_NUMBER,int _colsNum = IMG_COLS_NUMBER)
 {
     algorithmType = _algorithmType;
@@ -57,13 +58,21 @@ void ImgMaker::fillImgWithVector(vector<vector<int> > imgPixelVals)
     }
 }
 
+Tester::Tester(Mat _leftImg , Mat _rightImg)
+{
+    leftImg = _leftImg;
+    rightImg = _rightImg;
+    
+    stereo = new Stereo(leftImg,rightImg,MAX_DISPARITY,WINDOW_SIZE);
+}
+
 
 bool InvalidInputTester::testDisparityWithWrongXCordination()
 {
     int wrongXCordination = 700;
     int rightYCordination = 100;
 
-    d_pixel result = stereo.disparity(wrongXCordination,rightYCordination);
+    d_pixel result = stereo->disparity(wrongXCordination,rightYCordination);
     
     if(result.get_x() == wrongXCordination || result.get_disparity() == INVALID_DISPARITY)
         return WRONG_ANSWER;
@@ -76,7 +85,7 @@ bool InvalidInputTester::testDisparityWithWrongYCordination()
     int rightXCordination = 100;
     int wrongYCordination = 700;
 
-    d_pixel result = stereo.disparity(rightXCordination,wrongYCordination);
+    d_pixel result = stereo->disparity(rightXCordination,wrongYCordination);
 
     if(result.get_y() == wrongYCordination || result.get_disparity() == INVALID_DISPARITY)
         return WRONG_ANSWER;
@@ -89,7 +98,7 @@ bool InvalidInputTester::testDisparityWithWrongCordination()
    int wrongXCordination = 700;
    int wrongYCordination = 750;
 
-   d_pixel result = stereo.disparity(wrongXCordination,wrongYCordination);
+   d_pixel result = stereo->disparity(wrongXCordination,wrongYCordination);
 
    if(result.get_x() == wrongXCordination || result.get_y() == wrongYCordination || 
       result.get_disparity() == INVALID_DISPARITY)
@@ -102,7 +111,7 @@ bool InvalidInputTester::testDisparityWithUnInintializedVars()
 {
     int xPos,yPos;
 
-    d_pixel result = stereo.disparity(xPos,yPos);
+    d_pixel result = stereo->disparity(xPos,yPos);
 
     return RIGHT_ANSWER; //i could not find a way to check the answer is right or wrong but if this is not checked in function it will be cause runtime error
 }

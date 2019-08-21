@@ -4,9 +4,12 @@
 #include <vector>
 #include <string>
 #include <opencv2/imgproc/imgproc.hpp>
+
 #include "headers.h"
 
+
 #define WINDOW_SIZE 3
+#define MAX_DISPARITY 10
 #define IMG_ROWS_NUMBER 500
 #define IMG_COLS_NUMBER 500
 
@@ -18,6 +21,7 @@
 
 using namespace std;
 using namespace cv;
+
 
 class ImgMaker
 {
@@ -41,14 +45,15 @@ class Tester
 {
     public:
         Tester(Mat _leftImg,Mat _rightImg);
+
         void testAllFuntions();
         void setRightImg(Mat _rightImg);
         void setLeftImg(Mat _leftImg);
     protected:
         Mat leftImg;
         Mat rightImg;
-        Stereo stereo;
-        d_pixel d;
+        Stereo* stereo;
+        d_pixel d = d_pixel(5,5,5);
 };
 
 class InvalidInputTester : public Tester
