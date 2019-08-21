@@ -150,7 +150,7 @@ bool InvalidInputTester::testSetPixelWithWrongXCordination()
 
 bool InvalidInputTester::testSetPixelWithWrongYCordination()
 {
-    stereo->set_pixel(d_pixel(rightXCordination,wrongYCordination,rightDisparity));//set_pixel could return response
+    stereo->set_pixel(d_pixel(rightXCordination,wrongYCordination,rightDisparity));
 
     Mat stereoResult = stereo->get_result();
 
@@ -162,8 +162,7 @@ bool InvalidInputTester::testSetPixelWithWrongYCordination()
 
 bool InvalidInputTester::testSetPixelWithWrongCordination()
 {
-    stereo->set_pixel(d_pixel(wrongXCordination,wrongYCordination,rightDisparity));//set_pixel could return response
-
+    stereo->set_pixel(d_pixel(wrongXCordination,wrongYCordination,rightDisparity));
     Mat stereoResult = stereo->get_result();
 
     if(stereoResult.at<u_int8_t>(wrongXCordination,wrongYCordination) == rightDisparity)
@@ -194,4 +193,12 @@ bool InvalidInputTester::testSetPixelWithMoreThan255Disparity()
         return WRONG_ANSWER;
     else
         return RIGHT_ANSWER; 
+}
+
+bool InvalidInputTester::testSetPixelWithUnInintializedVars()
+{
+    int xPos,yPos,disparity;
+    stereo->set_pixel(d_pixel(xPos,yPos,disparity));
+
+    return RIGHT_ANSWER;//i could not find a way to check the answer is right or wrong but if this is not checked in function it will be cause runtime error
 }
