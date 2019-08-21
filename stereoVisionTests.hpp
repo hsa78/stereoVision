@@ -91,6 +91,7 @@ class InvalidInputTester : public Tester
         int wrongYCordination;
         int rightYCordination;
         int rightDisparity;
+        int negativeDisparity;
 };
 
 class ResultTester : public Tester 
