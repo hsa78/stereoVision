@@ -144,5 +144,28 @@ bool InvalidInputTester::testSetPixelWithWrongXCordination()
         return WRONG_ANSWER;
     else
         return RIGHT_ANSWER; 
+}
 
+bool InvalidInputTester::testSetPixelWithWrongYCordination()
+{
+    stereo->set_pixel(d_pixel(rightXCordination,wrongYCordination,rightDisparity));//set_pixel could return response
+
+    Mat stereoResult = stereo->get_result();
+
+    if(stereoResult.at<u_int8_t>(rightXCordination,wrongYCordination) == rightDisparity)
+        return WRONG_ANSWER;
+    else
+        return RIGHT_ANSWER; 
+}
+
+bool InvalidInputTester::testSetPixelWithWrongCordination()
+{
+    stereo->set_pixel(d_pixel(wrongXCordination,wrongYCordination,rightDisparity));//set_pixel could return response
+
+    Mat stereoResult = stereo->get_result();
+
+    if(stereoResult.at<u_int8_t>(wrongXCordination,wrongYCordination) == rightDisparity)
+        return WRONG_ANSWER;
+    else
+        return RIGHT_ANSWER; 
 }
