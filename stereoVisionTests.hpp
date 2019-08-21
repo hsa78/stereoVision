@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <assert.h>
 
 #include "headers.h"
 
@@ -79,12 +80,12 @@ class InvalidInputTester : public Tester
         bool testStereoWithVeryBigMaxDisparity();
         bool testStereoWithUnInintializedVars();
 
-        bool testTotalCostWithWrongXCordination();
-        bool testTotalCostWithWrongYCordination();
-        bool testTotalCostWithWrongCordination();  
-        bool testTotalCostWithNegativeD();
-        bool testTotalCostWithSoBigD();
-        bool testTotalCostWithUnInintializedVars();
+        // bool testTotalCostWithWrongXCordination();
+        // bool testTotalCostWithWrongYCordination();
+        // bool testTotalCostWithWrongCordination();  
+        // bool testTotalCostWithNegativeD();
+        // bool testTotalCostWithSoBigD();
+        // bool testTotalCostWithUnInintializedVars();
     private:
         int wrongXCordination;
         int rightXCordination;
@@ -93,6 +94,7 @@ class InvalidInputTester : public Tester
         int rightDisparity;
         int negativeDisparity;
         int outOfBondDisparity;
+        int outOfBondWindowSize;
 };
 
 class ResultTester : public Tester 

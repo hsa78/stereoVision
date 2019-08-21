@@ -94,6 +94,7 @@ InvalidInputTester::InvalidInputTester()
     rightDisparity = 10;
     negativeDisparity = -10;
     outOfBondDisparity = 400;
+    outOfBondWindowSize = 700;
 }
 
 bool InvalidInputTester::testDisparityWithWrongXCordination()
@@ -202,3 +203,58 @@ bool InvalidInputTester::testSetPixelWithUnInintializedVars()
 
     return RIGHT_ANSWER;//i could not find a way to check the answer is right or wrong but if this is not checked in function it will be cause runtime error
 }
+
+bool InvalidInputTester::testStereoWithSoBigWindowSize()
+{
+    Stereo stereoTest = Stereo(ImgMaker(1).getImg(),ImgMaker(1).getImg(),MAX_DISPARITY,outOfBondWindowSize);
+    //TODO Stereo at least should have geters i could not check functionality
+
+    return RIGHT_ANSWER;
+}
+
+bool InvalidInputTester::testStereoWithNegativeMaxDisparity()
+{
+    Stereo stereoTest = Stereo(ImgMaker(1).getImg(),ImgMaker(1).getImg(),negativeDisparity,WINDOW_SIZE);
+    //TODO Stereo at least should have geters i could not check functionality
+
+    return RIGHT_ANSWER;
+}
+
+bool InvalidInputTester::testStereoWithVeryBigMaxDisparity()
+{
+    Stereo stereoTest = Stereo(ImgMaker(1).getImg(),ImgMaker(1).getImg(),outOfBondDisparity,WINDOW_SIZE);
+    //TODO Stereo at least should have geters i could not check functionality
+
+    return RIGHT_ANSWER;
+}
+
+bool InvalidInputTester::testStereoWithUnInintializedVars()
+{
+    int windowSize,disparity;
+    Mat img1,img2;
+    Stereo stereoTest = Stereo(img1,img2,disparity,windowSize);
+    //TODO Stereo at least should have geters i could not check functionality
+
+    return RIGHT_ANSWER;
+}
+
+void InvalidInputTester::testAllFunctionsInputs()
+{
+    assert(testDisparityWithWrongXCordination());
+    assert(testDisparityWithWrongYCordination());
+    assert(testDisparityWithWrongCordination());
+    assert(testDisparityWithUnInintializedVars());
+
+    assert(testSetPixelWithWrongXCordination());
+    assert(testSetPixelWithWrongYCordination());
+    assert(testSetPixelWithWrongCordination());
+    assert(testSetPixelWithNegativeDisparity());
+    assert(testSetPixelWithMoreThan255Disparity());
+    assert(testSetPixelWithUnInintializedVars());
+
+    assert(testStereoWithSoBigWindowSize());
+    assert(testStereoWithNegativeMaxDisparity());
+    assert(testStereoWithVeryBigMaxDisparity());
+    assert(testStereoWithUnInintializedVars());
+}
+
