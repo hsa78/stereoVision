@@ -93,6 +93,7 @@ InvalidInputTester::InvalidInputTester()
     rightYCordination = 100;
     rightDisparity = 10;
     negativeDisparity = -10;
+    outOfBondDisparity = 400;
 }
 
 bool InvalidInputTester::testDisparityWithWrongXCordination()
@@ -178,6 +179,18 @@ bool InvalidInputTester::testSetPixelWithNegativeDisparity()
     Mat stereoResult = stereo->get_result();
 
     if(stereoResult.at<u_int8_t>(rightXCordination,rightYCordination) == negativeDisparity)
+        return WRONG_ANSWER;
+    else
+        return RIGHT_ANSWER; 
+}
+
+bool InvalidInputTester::testSetPixelWithMoreThan255Disparity()
+{
+    stereo->set_pixel(d_pixel(rightXCordination,rightYCordination,outOfBondDisparity));
+
+    Mat stereoResult = stereo->get_result();
+
+    if(stereoResult.at<u_int8_t>(rightXCordination,rightYCordination) == outOfBondDisparity)
         return WRONG_ANSWER;
     else
         return RIGHT_ANSWER; 

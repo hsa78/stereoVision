@@ -92,6 +92,7 @@ class InvalidInputTester : public Tester
         int rightYCordination;
         int rightDisparity;
         int negativeDisparity;
+        int outOfBondDisparity;
 };
 
 class ResultTester : public Tester 
