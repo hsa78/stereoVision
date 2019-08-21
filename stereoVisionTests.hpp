@@ -59,6 +59,7 @@ class Tester
 class InvalidInputTester : public Tester
 {
     public:
+        InvalidInputTester();
         void testAllFunctionsInputs();
     private:
         bool testDisparityWithWrongXCordination(); //just x is wrong
@@ -90,6 +91,7 @@ class InvalidInputTester : public Tester
 class ResultTester : public Tester 
 {
     public:
+        ResultTester();
         void testAllFunctionResults();
         
     private:

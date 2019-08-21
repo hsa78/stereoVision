@@ -66,6 +66,15 @@ Tester::Tester(Mat _leftImg , Mat _rightImg)
     stereo = new Stereo(leftImg,rightImg,MAX_DISPARITY,WINDOW_SIZE);
 }
 
+void Tester::testAllFuntions()
+{
+    InvalidInputTester invalidInputTester;
+    ResultTester resultTester;
+
+    invalidInputTester.testAllFunctionsInputs();
+    resultTester.testAllFunctionResults();
+}
+
 
 bool InvalidInputTester::testDisparityWithWrongXCordination()
 {
