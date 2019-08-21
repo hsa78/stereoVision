@@ -58,7 +58,7 @@ void ImgMaker::fillImgWithVector(vector<vector<int> > imgPixelVals)
     }
 }
 
-Tester::Tester(Mat _leftImg , Mat _rightImg)
+Tester::Tester(Mat _leftImg = ImgMaker(1).getImg() , Mat _rightImg = ImgMaker(1).getImg())
 {
     leftImg = _leftImg;
     rightImg = _rightImg;
@@ -68,7 +68,7 @@ Tester::Tester(Mat _leftImg , Mat _rightImg)
 
 void Tester::testAllFuntions()
 {
-    InvalidInputTester invalidInputTester;
+    InvalidInputTester invalidInputTester = InvalidInputTester();
     ResultTester resultTester;
 
     invalidInputTester.testAllFunctionsInputs();
@@ -85,11 +85,17 @@ void Tester::setRightImg(Mat _rightImg)
     rightImg = _rightImg;
 }
 
+InvalidInputTester::InvalidInputTester()
+{
+    wrongXCordination = 700;
+    wrongYCordination = 700;
+    rightXCordination = 100;
+    rightYCordination = 100;
+    rightDisparity = 10;
+}
+
 bool InvalidInputTester::testDisparityWithWrongXCordination()
 {
-    int wrongXCordination = 700;
-    int rightYCordination = 100;
-
     d_pixel result = stereo->disparity(wrongXCordination,rightYCordination);
     
     if(result.get_x() == wrongXCordination || result.get_disparity() == INVALID_DISPARITY)
@@ -100,9 +106,6 @@ bool InvalidInputTester::testDisparityWithWrongXCordination()
 
 bool InvalidInputTester::testDisparityWithWrongYCordination()
 {
-    int rightXCordination = 100;
-    int wrongYCordination = 700;
-
     d_pixel result = stereo->disparity(rightXCordination,wrongYCordination);
 
     if(result.get_y() == wrongYCordination || result.get_disparity() == INVALID_DISPARITY)
@@ -113,9 +116,6 @@ bool InvalidInputTester::testDisparityWithWrongYCordination()
 
 bool InvalidInputTester::testDisparityWithWrongCordination()
 {
-   int wrongXCordination = 700;
-   int wrongYCordination = 750;
-
    d_pixel result = stereo->disparity(wrongXCordination,wrongYCordination);
 
    if(result.get_x() == wrongXCordination || result.get_y() == wrongYCordination || 
@@ -132,4 +132,17 @@ bool InvalidInputTester::testDisparityWithUnInintializedVars()
     d_pixel result = stereo->disparity(xPos,yPos);
 
     return RIGHT_ANSWER; //i could not find a way to check the answer is right or wrong but if this is not checked in function it will be cause runtime error
+}
+
+bool InvalidInputTester::testSetPixelWithWrongXCordination()
+{
+    stereo->set_pixel(d_pixel(wrongXCordination,rightYCordination,rightDisparity));//set_pixel could return response
+
+    Mat stereoResult = stereo->get_result();
+
+    if(stereoResult.at<u_int8_t>(wrongXCordination,rightYCordination) == rightDisparity)
+        return WRONG_ANSWER;
+    else
+        return RIGHT_ANSWER; 
+
 }

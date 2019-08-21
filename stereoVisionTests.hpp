@@ -85,7 +85,12 @@ class InvalidInputTester : public Tester
         bool testTotalCostWithNegativeD();
         bool testTotalCostWithSoBigD();
         bool testTotalCostWithUnInintializedVars();
-
+    private:
+        int wrongXCordination;
+        int rightXCordination;
+        int wrongYCordination;
+        int rightYCordination;
+        int rightDisparity;
 };
 
 class ResultTester : public Tester 
