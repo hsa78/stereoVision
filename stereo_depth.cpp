@@ -32,9 +32,9 @@ d_pixel Stereo::calculate_pixel_min_disparity(int x, int y)
 	for (int i = 0; i < max_disparity; ++i)
 	{
 		if (i == 0)
-			min_disparity = calculate_disparity_of_two_pixel(x, y, 0);
+			min_disparity = calculate_disparity_of_two_window(x, y, 0);
 
-		int disparity = calculate_disparity_of_two_pixel(x, y, i);
+		int disparity = calculate_disparity_of_two_window(x, y, i);
 
 		if (disparity < min_disparity && disparity != -1)
 			min_disparity = disparity;
@@ -43,6 +43,10 @@ d_pixel Stereo::calculate_pixel_min_disparity(int x, int y)
 	return d_pixel(x, y, min_disparity);
 }
 
+int Stereo::calculate_disparity_of_two_window(int x, int y, int d)
+{
+
+}
 
 int main(int argc, char *argv[])
 {

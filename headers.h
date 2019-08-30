@@ -23,7 +23,7 @@ public:
 	cv::Mat get_result() {return result;}
 	void compute_result_pixels();
 	void set_result_pixel(d_pixel disparity);
-	int calculate_disparity_of_two_pixel(int x, int y, /**/int d);
+	int calculate_disparity_of_two_window(int x, int y, /**/int d);
 	d_pixel calculate_pixel_min_disparity(int x, int y);
 private:
 	cv::Mat image_l;
