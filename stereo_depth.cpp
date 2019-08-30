@@ -45,7 +45,15 @@ d_pixel Stereo::calculate_pixel_min_disparity(int x, int y)
 
 int Stereo::calculate_disparity_of_two_window(int x, int y, int d)
 {
-
+    int sum = 0;
+    if (x - d < 0)
+        return -1;
+    for (int i = -1 * w / 2; i <= w / 2; i++) {
+        for (int j = -1 * w / 2; j <= w / 2; j++) {
+            if (x + i - d < 0 || x + i < 0 || y + j < 0 || x + i > image_r.rows - 1 || y + j > image_r.cols - 1)
+                continue;
+            sum += disparity_between_two_pixels(x,y,x + i, y + j);
+    return sum;
 }
 
 int main(int argc, char *argv[])
