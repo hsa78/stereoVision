@@ -53,6 +53,8 @@ int Stereo::calculate_disparity_of_two_window(int x, int y, int d)
             if (x + i - d < 0 || x + i < 0 || y + j < 0 || x + i > image_r.rows - 1 || y + j > image_r.cols - 1)
                 continue;
             sum += disparity_between_two_pixels(x,y,x + i, y + j);
+        }
+    }
     return sum;
 }
 
