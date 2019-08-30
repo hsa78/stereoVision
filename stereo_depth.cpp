@@ -58,6 +58,13 @@ int Stereo::calculate_disparity_of_two_window(int x, int y, int d)
     return sum;
 }
 
+int Stereo::disparity_between_two_pixels(int img_left_x, int img_left_y, int img_right_x, int img_right_y)
+{
+    int left_pixel_val = image_l.at<u_int8_t>(img_left_x,img_left_y);
+    int right_pixel_val = image_r.at<u_int8_t>(img_right_x,img_right_y);
+    return (left_pixel_val - right_pixel_val) ^ 2;
+}
+
 int main(int argc, char *argv[])
 {
 	if ( argc != 5 )
