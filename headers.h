@@ -21,10 +21,10 @@ class Stereo
 public:
 	Stereo(cv::Mat image_1, cv::Mat image_2, int _max_disparity, int _w);
 	cv::Mat get_result() {return result;}
-	void compute();
-	void set_pixel(d_pixel disparity);
-	int total_cost(int x, int y, /**/int d);
-	d_pixel disparity(int x, int y);
+	void compute_result_pixels();
+	void set_result_pixel(d_pixel disparity);
+	int calculate_disparity_of_two_pixel(int x, int y, /**/int d);
+	d_pixel calculate_pixel_min_disparity(int x, int y);
 private:
 	cv::Mat image_l;
 	cv::Mat image_r;

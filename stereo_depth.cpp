@@ -11,30 +11,30 @@ w(_w), max_disparity(_max_disparity) , image_r(image_1) , image_l(image_2), resu
 
 }
 
-void Stereo::set_pixel(d_pixel d)
+void Stereo::set_result_pixel(d_pixel d)
 {
 	result.at<uchar>(d.get_x(), d.get_y()) = d.get_disparity();
 }
 
-void Stereo::compute()
+void Stereo::compute_result_pixels()
 {
 	for (int i = 0; i < result.rows; ++i)
 	{
 		for (int j = 0; j < result.cols; ++j)
-			set_pixel(disparity(i, j));
+			set_result_pixel(calculate_pixel_min_disparity(i, j));
 	}
 }
 
-d_pixel Stereo::disparity(int x, int y)
+d_pixel Stereo::calculate_pixel_min_disparity(int x, int y)
 {
 	int min_disparity;
 
 	for (int i = 1; i < max_disparity; ++i)
 	{
 		if (i == 1)
-			min_disparity = total_cost(x, y, 1);
+			min_disparity = calculate_disparity_of_two_pixel(x, y, 1);
 
-		int disparity = total_cost(x, y, i);
+		int disparity = calculate_disparity_of_two_pixel(x, y, i);
 
 		if (disparity < min_disparity && disparity != -1)
 			min_disparity = disparity;
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
 
     Stereo result(image_1, image_2, stoi(argv[3]), stoi(argv[4]));
 
-    result.compute();
+    result.compute_result_pixels();
 
     Mat image = result.get_result();
 
