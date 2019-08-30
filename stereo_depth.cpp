@@ -29,10 +29,10 @@ d_pixel Stereo::calculate_pixel_min_disparity(int x, int y)
 {
 	int min_disparity;
 
-	for (int i = 1; i < max_disparity; ++i)
+	for (int i = 0; i < max_disparity; ++i)
 	{
-		if (i == 1)
-			min_disparity = calculate_disparity_of_two_pixel(x, y, 1);
+		if (i == 0)
+			min_disparity = calculate_disparity_of_two_pixel(x, y, 0);
 
 		int disparity = calculate_disparity_of_two_pixel(x, y, i);
 
