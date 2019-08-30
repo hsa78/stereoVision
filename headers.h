@@ -25,6 +25,7 @@ public:
 	void set_result_pixel(d_pixel disparity);
 	int calculate_disparity_of_two_window(int x, int y, /**/int d);
 	d_pixel calculate_pixel_min_disparity(int x, int y);
+	int disparity_between_two_pixels(int img_left_x, int img_left_y, int img_right_x, int img_right_y);
 private:
 	cv::Mat image_l;
 	cv::Mat image_r;
