@@ -52,16 +52,16 @@ int Stereo::calculate_disparity_of_two_window(int x, int y, int d)
         for (int j = -1 * w / 2; j <= w / 2; j++) {
             if (x + i - d < 0 || x + i < 0 || y + j < 0 || x + i > image_r.rows - 1 || y + j > image_r.cols - 1)
                 continue;
-            sum += disparity_between_two_pixels(x + i,y + j,x + i - d, y + j);
+            sum += disparity_between_two_pixels(x + i,y + j,d);
         }
     }
     return sum;
 }
 
-int Stereo::disparity_between_two_pixels(int img_left_x, int img_left_y, int img_right_x, int img_right_y)
+int Stereo::disparity_between_two_pixels(int img_left_x, int img_left_y, int d)
 {
     int left_pixel_val = image_l.at<u_int8_t>(img_left_x,img_left_y);
-    int right_pixel_val = image_r.at<u_int8_t>(img_right_x,img_right_y);
+    int right_pixel_val = image_r.at<u_int8_t>(img_left_x - d,img_left_y);
     return abs(left_pixel_val - right_pixel_val) ;
 }
 
