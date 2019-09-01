@@ -73,19 +73,22 @@ int main(int argc, char *argv[])
         return 0;
     }
     
-    Mat image_1;
-    Mat image_2;
+    Mat image_r;
+    Mat image_l;
 
-    image_1 = imread( argv[1], IMREAD_GRAYSCALE);
-    image_2 = imread( argv[2], IMREAD_GRAYSCALE);
+    image_r = imread( argv[1], IMREAD_GRAYSCALE);
+    image_l = imread( argv[2], IMREAD_GRAYSCALE);
 
-    if ( !image_1.data  || !image_2.data)
+    if ( !image_r.data  || !image_l.data)
     {
         cout << "image not found \n";
         return 0;
     }
 
-    Stereo result(image_1, image_2, stoi(argv[3]), stoi(argv[4]));
+    int max_disparity = stoi(argv[3]);
+    int window_size = stoi(argv[4]);
+
+    Stereo result(image_r, image_l, max_disparity, window_size);
 
     result.compute_result_pixels();
 
@@ -93,7 +96,7 @@ int main(int argc, char *argv[])
 
 	namedWindow("Stereo Image", WINDOW_AUTOSIZE );
 
-    imshow("1", image);
+    imshow("Stereo Image", image);
 
     waitKey(0);
 
